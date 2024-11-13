@@ -324,10 +324,10 @@ export class AnnotationLayer extends EventEmitter {
           const hoveredShape = isSelection ? this.selectedShape : this._getShapeAt(originalEvent);
 
           // Ignore clicks on selection
-          if (hoveredShape) {
+          if (hoveredShape && hoveredShape !== this.selectedShape?.element) {
             evt.preventDefaultAction = true; // No zoom on click
             this.selectShape(hoveredShape);
-          } else if (!hoveredShape) {
+          } else { 
             this.deselect();
             this.emit('select', {});
           }
