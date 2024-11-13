@@ -7,7 +7,8 @@
     "start": "webpack serve --open --mode=development",
     "build": "webpack --mode=production",
     "build-polyfills": "webpack --mode=production --config webpack.polyfills.js",
-    "vite-build": "vite build && mv ./dist/annotorious-openseadragon.umd.js ./dist/openseadragon-annotorious.min.js && mv ./dist/style.css ./dist/annotorious.min.css"
+    "vite-build": "vite build && mv ./dist/annotorious-openseadragon.umd.js ./dist/openseadragon-annotorious.min.js && mv ./dist/style.css ./dist/annotorious.min.css",
+    "vite-build-windows": "vite build && rename \".\\dist\\annotorious-openseadragon.umd.js\" openseadragon-annotorious.min.js && rename \".\\dist\\style.css\" annotorious.min.css"
   },
   "repository": {
     "type": "git",
@@ -48,7 +49,7 @@
     "openseadragon": "^3.0.0 || ^4.0.0"
   },
   "dependencies": {
-    "@recogito/annotorious": "2.7.13",
+    "@recogito/annotorious": "file:./local_modules/@recogito/annotorious",
     "@recogito/recogito-client-core": "^1.7.9",
     "preact": "^10.5.13",
     "rbush": "^3.0.1",
