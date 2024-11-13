@@ -382,8 +382,13 @@ export class AnnotationLayer extends EventEmitter {
 
     shape.setAttribute('data-id', annotation.id);
     shape.annotation = annotation;
-
-    g.appendChild(shape);
+    
+    if (g.lastChild && !g.lastChild.annotation) {
+      // Avoid this shape overlapping the editable shape
+      g.insertBefore(shape, g.lastChild);
+    } else {
+      g.appendChild(shape);
+    }
     
     format(shape, annotation, this.formatters);
     this.scaleFormatterElements(shape);
