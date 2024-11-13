@@ -255,6 +255,15 @@ export class AnnotationLayer extends EventEmitter {
     document.addEventListener('keyup', this.onKeyUp);
   }
 
+  _removeHoverShapeClass = () => {
+    if (this.hoveredShape) {
+      const element = this.hoveredShape.element || this.hoveredShape;
+      removeClass(element, 'hover');
+      
+      this.emit('mouseLeaveAnnotation', this.hoveredShape.annotation, this.hoveredShape);
+    }
+  }
+
   _initMouseEvents = () => {
     // We use mouse-move to track which annotation is currently hovered on.
     // Keep in mind that annotations are NOT automatically stacked from large
@@ -267,17 +276,12 @@ export class AnnotationLayer extends EventEmitter {
         // Don't do anything if the move happens over the current selection
         const isMoveSelection = evt.target.closest('.a9s-annotation.editable.selected');
 
-        if (!isMoveSelection) {
+        if (!isMoveSelection && !this.selectedShape?.grabbedElem) {
           const shape = this._getShapeAt(evt);
 
           // Hovered annotation changed
           if (shape?.annotation !== this.hoveredShape?.annotation) {
-            if (this.hoveredShape) {
-              const element = this.hoveredShape.element || this.hoveredShape;
-              removeClass(element, 'hover');
-              
-              this.emit('mouseLeaveAnnotation', this.hoveredShape.annotation, this.hoveredShape);
-            }
+            this._removeHoverShapeClass();
 
             if (shape) {
               addClass(shape, 'hover');
@@ -715,6 +719,8 @@ export class AnnotationLayer extends EventEmitter {
 
         // En-/disable OSD nav based on hover status
         this.selectedShape.element.addEventListener('mouseenter', () => {
+          this._removeHoverShapeClass();
+
           this.hoveredShape = this.selectedShape;
           editableShapeMouseTracker.setTracking(true);
         });
