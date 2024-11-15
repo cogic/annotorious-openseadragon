@@ -754,11 +754,13 @@ export class AnnotationLayer extends EventEmitter {
     }
   }
 
-  setDrawingEnabled = enable => {
+  setDrawingEnabled = (enable, notSetTracking) => {
     if (this.mouseTracker) {
       const enabled = enable && !this.readOnly;
       this.mouseTracker.enabled = enabled;
-      this.mouseTracker.setTracking(enabled);
+      if (!notSetTracking) {
+        this.mouseTracker.setTracking(enabled);
+      }
       if (this.tools.current)
         this.tools.current.enabled = enabled;
     }

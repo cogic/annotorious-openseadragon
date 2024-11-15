@@ -241,8 +241,8 @@ class OSDAnnotorious {
   setAuthInfo = authinfo =>
     this._env.user = authinfo;
 
-  setDrawingEnabled = enable =>
-    this._app.current.setDrawingEnabled(enable);
+  setDrawingEnabled = (enable, notSetTracking) =>
+    this._app.current.setDrawingEnabled(enable, notSetTracking);
 
   setDrawingTool = shape =>
     this._app.current.setDrawingTool(shape);
