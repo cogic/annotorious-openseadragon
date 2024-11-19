@@ -693,16 +693,18 @@ export class AnnotationLayer extends EventEmitter {
       const toolForAnnotation = this.tools.forAnnotation(annotation);
 
       if (toolForAnnotation) {
-        setTimeout(() => {
-          shape.parentNode.removeChild(shape);
+        if (!this.config.syncRemoveOriginalShape) {
+          setTimeout(() => {
+            shape.parentNode.removeChild(shape);
 
-          // Fire the event AFTER the original shape was removed. Otherwise,
-          // people calling `.getAnnotations()` in the `onSelectAnnotation` 
-          // handler will receive a duplicate annotation
-          // (See issue https://github.com/recogito/annotorious-openseadragon/issues/63)
-          if (!skipEvent)
-            this.emit('select', { annotation, element: this.selectedShape.element });
-        }, 1);
+            // Fire the event AFTER the original shape was removed. Otherwise,
+            // people calling `.getAnnotations()` in the `onSelectAnnotation` 
+            // handler will receive a duplicate annotation
+            // (See issue https://github.com/recogito/annotorious-openseadragon/issues/63)
+            if (!skipEvent)
+              this.emit('select', { annotation, element: this.selectedShape.element });
+          }, 1);
+        }
 
         this.selectedShape = toolForAnnotation.createEditableShape(annotation, this.formatters);
         this.scaleTool(this.selectedShape);
@@ -739,6 +741,12 @@ export class AnnotationLayer extends EventEmitter {
 
         this.selectedShape.on('update', fragment =>
           this.emit('updateTarget', this.selectedShape.element, fragment));
+        
+        if (this.config.syncRemoveOriginalShape) {
+          shape.parentNode.removeChild(shape);
+          if (!skipEvent)
+            this.emit('select', { annotation, element: this.selectedShape.element });
+        }
       } else {
         this.selectedShape = shape;
 
