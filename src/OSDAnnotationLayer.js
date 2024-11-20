@@ -271,8 +271,8 @@ export class AnnotationLayer extends EventEmitter {
     // ones. That's the reason we can't use native mouseEnter/mouseLeave events
     // on the SVG shapes! 
     this.svg.addEventListener('mousemove', evt => {
-      // Don't track mouseEnter/mouseLeave while drawing
-      if (!this.tools?.current.isDrawing) {
+      // Don't track mouseEnter/mouseLeave while drawing or if tools.current.enabled and disableHoverWhenToolEnabled are true
+      if (!this.tools?.current.isDrawing && !(this.config.disableHoverWhenToolEnabled && this.tools?.current.enabled)) {
         // Don't do anything if the move happens over the current selection
         const isMoveSelection = evt.target.closest('.a9s-annotation.editable.selected');
 
