@@ -44,26 +44,6 @@
         display:none;
       }
     </style>
-    
-  </head>
-  <body>
-    <div class="column">
-      <h1>Annotorious | OpenSeadragon Example</h1>
-      <p class="instructions">
-        Click the annotation to edit. Hold <strong>SHIFT</strong> while clicking and 
-        dragging the mouse to create a new annotation. 
-      </p>
-      <p>
-        <button id="current-tool">TOOL: RECTANGLE</button>
-        <button id="mode">MODE: VIEW</button>
-        <button id="zoom-in">zoom in -</button>
-        <button id="zoom-out">zoom out +</button>
-      </p>
-      <div id="openseadragon" style="width: 640px; height: 480px;"></div>
-    </div>      
-    <!-- <script src="https://cdn.jsdelivr.net/npm/openseadragon@4.1/build/openseadragon/openseadragon.min.js"></script> -->
-    <script src="/openseadragon/openseadragon.3.0.0.min.js"></script>
-    <script src="openseadragon-annotorious.min.js"></script>
     <script>
       var updatedAnnotation = {
         "@context": "http://www.w3.org/ns/anno.jsonld",
@@ -98,42 +78,17 @@
           showRotationControl: true,
           showFlipControl: true,
           constrainDuringPan: true,
-          minZoomImageRatio: 0,
-          maxZoomPixelRatio: Infinity,
-          animationTime: 0.5,
-          zoomPerClick: 1.5,
-          showNavigator: true,
-          zoomInButton: 'zoom-in',
-          zoomOutButton: 'zoom-out',
-          // zoomPerSecond: 1.5,
-          gestureSettingsMouse: {
-            clickToZoom: false,
-            dragToPan: false,
-          },
         });
         
         var anno = OpenSeadragon.Annotorious(viewer, {
           locale: 'auto',
-          drawOnSingleClick: true,
+          // drawOnSingleClick: true,
           allowEmpty: true,
-          // crosshair: true,
+          crosshair: true
           // disableSelect: true
           // crosshair: true
-          disableEditor: true,
+          // disableEditor: true,
           // disableDeleteKey: true
-          
-          enableEdgeControls: true,
-          allowDrawingWithSelection: true,
-          minPolygonPoints: 3,
-
-          // Only works when drawOnSingleClick is true
-          addPolygonPointOnMouseDown: true,
-
-          // Whether to remove the original shape synchronously to avoid shape change bounce
-          syncRemoveOriginalShape: true,
-
-          // If true, no shapes will be set to hoverd when tools.current.enable is true
-          disableHoverWhenToolEnabled: true,
         });
 
         anno.setAuthInfo({
@@ -159,20 +114,20 @@
             anno.setDrawingEnabled(true);
           } else {
             modeBtn.innerHTML = 'MODE: VIEW';
-            anno.setDrawingEnabled(false, true);
+            anno.setDrawingEnabled(false);
           }
         });
 
         anno.on('startSelection', function(a) {
-          // console.log('start selection', a);
+          console.log('start selection', a);
         });
 
         anno.on('endSelection', function(a) {
-          // console.log('end selection', a);
+          console.log('end selection', a);
         });
 
         anno.on('createAnnotation', function(a, overrideId) {
-          // console.log('created', a);
+          console.log('created', a);
         });
 
         anno.on('updateAnnotation', function(annotation, previous) {
@@ -180,11 +135,11 @@
         });
 
         anno.on('selectAnnotation', function(annotation, shape) {
-          console.log('selected666666666666666666666', anno.getAnnotations());
+          console.log('selected');
         });
 
         anno.on('deleteAnnotation', function(annotation) {
-          // console.log('deleted');
+          console.log('deleted');
         });
 
         anno.on('cancelSelected', function(a) {
@@ -192,19 +147,35 @@
         });
 
         anno.on('mouseEnterAnnotation', function(annotation, shape) {
-          // console.log('mouseEnter');
+          console.log('mouseEnter');
         });
 
         anno.on('mouseLeaveAnnotation', function(annotation, shape) {
-          // console.log('mouseLeave');
+          console.log('mouseLeave');
         });
 
         anno.on('clickAnnotation', function(annotation) {
-          // console.log('click');
+          console.log('click');
         });
 
         anno.loadAnnotations('annotations.w3c.json');
       }
     </script>
+  </head>
+  <body>
+    <div class="column">
+      <h1>Annotorious | OpenSeadragon Example</h1>
+      <p class="instructions">
+        Click the annotation to edit. Hold <strong>SHIFT</strong> while clicking and 
+        dragging the mouse to create a new annotation. 
+      </p>
+      <p>
+        <button id="current-tool">TOOL: RECTANGLE</button>
+        <button id="mode">MODE: VIEW</button>
+      </p>
+      <div id="openseadragon" style="width: 640px; height: 480px;"></div>
+    </div>      
+    <script src="https://cdn.jsdelivr.net/npm/openseadragon@4.1/build/openseadragon/openseadragon.min.js"></script>
+    <script src="openseadragon-annotorious.min.js"></script>
   </body>
 </html>
