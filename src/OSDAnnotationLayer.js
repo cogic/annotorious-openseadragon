@@ -75,7 +75,9 @@ export class AnnotationLayer extends EventEmitter {
       if (props.config.crosshair) {
         if (!this.crosshair) {
           this.crosshair = new Crosshair(this.svg);
-          addClass(this.svg, 'no-cursor');
+          if (!props.config.crosshairWithCursor){
+            addClass(this.svg, 'no-cursor');
+          }
         }
       }
 
