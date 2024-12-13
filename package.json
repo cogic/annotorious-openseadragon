@@ -49,7 +49,7 @@
     "openseadragon": "^3.0.0 || ^4.0.0"
   },
   "dependencies": {
-    "@recogito/annotorious": "github:cogic/annotorious#2.x",
+    "@cogic/annotorious": "^2.7.15",
     "@recogito/recogito-client-core": "^1.7.9",
     "preact": "^10.5.13",
     "rbush": "^3.0.1",

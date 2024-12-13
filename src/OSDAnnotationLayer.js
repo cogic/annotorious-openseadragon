@@ -1,10 +1,10 @@
 import EventEmitter from 'tiny-emitter';
 import OpenSeadragon from 'openseadragon';
-import { SVG_NAMESPACE, addClass, hasClass, removeClass } from '@recogito/annotorious/src/util/SVG';
-import DrawingTools from '@recogito/annotorious/src/tools/ToolsRegistry';
-import { drawShape } from '@recogito/annotorious/src/selectors';
-import { format } from '@recogito/annotorious/src/util/Formatting';
-import { isTouchDevice, enableTouchTranslation } from '@recogito/annotorious/src/util/Touch';
+import { SVG_NAMESPACE, addClass, hasClass, removeClass } from '@cogic/annotorious/src/util/SVG';
+import DrawingTools from '@cogic/annotorious/src/tools/ToolsRegistry';
+import { drawShape } from '@cogic/annotorious/src/selectors';
+import { format } from '@cogic/annotorious/src/util/Formatting';
+import { isTouchDevice, enableTouchTranslation } from '@cogic/annotorious/src/util/Touch';
 import Crosshair from './OSDCrosshair';
 import AnnotationStore from './AnnotationStore';
 import { getSnippet } from './util/ImageSnippet';

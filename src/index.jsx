@@ -9,7 +9,7 @@ import {
   setLocale
 } from '@recogito/recogito-client-core';
 
-import '@recogito/annotorious/src/ImageAnnotator.scss';
+import '@cogic/annotorious/src/ImageAnnotator.scss';
 import '@recogito/recogito-client-core/themes/default';
 import './OpenSeadragonAnnotator.scss';
 

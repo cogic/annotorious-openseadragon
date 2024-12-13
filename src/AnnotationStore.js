@@ -1,6 +1,6 @@
 import RBush from 'rbush';
-import { SVG_NAMESPACE } from '@recogito/annotorious/src/util/SVG';
-import { drawShape, shapeArea, svgFragmentToShape, parseRectFragment } from '@recogito/annotorious/src/selectors';
+import { SVG_NAMESPACE } from '@cogic/annotorious/src/util/SVG';
+import { drawShape, shapeArea, svgFragmentToShape, parseRectFragment } from '@cogic/annotorious/src/selectors';
 import { WebAnnotation } from '@recogito/recogito-client-core';
 import { 
   pointInCircle,
@@ -8,7 +8,7 @@ import {
   pointInPolygon,
   svgPathToPolygons,
   pointInLine
-} from '@recogito/annotorious/src/util/Geom2D';
+} from '@cogic/annotorious/src/util/Geom2D';
 
 /** 
  * Computes the bounding box of an annotation. WARNING:
