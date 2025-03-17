@@ -797,8 +797,8 @@ export class AnnotationLayer extends EventEmitter {
       if (this.tools.current.isDrawing)
         this.tools.current.stop();
   
-      this.mouseTracker.enabled = false;
-      this.tools.current.enabled = false; 
+      // this.mouseTracker.enabled = false;
+      // this.tools.current.enabled = false; 
     }
   }
 
