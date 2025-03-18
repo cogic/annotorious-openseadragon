@@ -720,7 +720,10 @@ export class AnnotationLayer extends EventEmitter {
           element: this.svg,
 
           preProcessEventHandler: info => {
-            info.stopPropagation = true;
+            if (!(info.originalEvent instanceof KeyboardEvent)) {
+              // Allow keyboard events to propagate
+              info.stopPropagation = true;
+            }
             info.preventDefault = false;
             info.preventGesture = true;
           }
