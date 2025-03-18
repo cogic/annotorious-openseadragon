@@ -401,6 +401,10 @@ export default class OpenSeadragonAnnotator extends Component {
       this.clearState();
   }
 
+  stopDrawing = () => {
+    this.annotationLayer.stopDrawing();
+  }
+
   updateSelected = (annotation, saveImmediately) =>
     new Promise(resolve => {
       if (this.state.selectedAnnotation) {

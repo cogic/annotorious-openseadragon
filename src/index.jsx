@@ -253,6 +253,10 @@ class OSDAnnotorious {
   setVisible = visible =>
     this._app.current.setVisible(visible); 
 
+  stopDrawing = () => {
+    this._app.current.stopDrawing();
+  }
+
   updateSelected = (annotation, saveImmediately) => {
     let updated = null;
 
