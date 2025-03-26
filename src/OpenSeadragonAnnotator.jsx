@@ -319,6 +319,8 @@ export default class OpenSeadragonAnnotator extends Component {
   getSelectedImageSnippet = () =>
     this.annotationLayer.getSelectedImageSnippet();
 
+  getCurrentDrawingTool = () => this.annotationLayer.tools?.current;
+
   listDrawingTools = () =>
     this.annotationLayer.listDrawingTools();
 

@@ -189,6 +189,8 @@ class OSDAnnotorious {
   getSelectedImageSnippet = () =>
     this._app.current.getSelectedImageSnippet();
 
+  getCurrentDrawingTool = () => this._app.current.getCurrentDrawingTool();
+
   listDrawingTools = () =>
     this._app.current.listDrawingTools();
 
