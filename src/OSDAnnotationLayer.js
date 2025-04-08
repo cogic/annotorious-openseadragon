@@ -530,8 +530,6 @@ export class AnnotationLayer extends EventEmitter {
 
     this._lazy(() => {
       // Draw annotations
-      console.time('Took');
-      console.log('Drawing...');
 
       if (!this.loaded)
         this.g.style.display = 'none';
@@ -539,9 +537,7 @@ export class AnnotationLayer extends EventEmitter {
       annotations.forEach(annotation => this.addAnnotation(annotation));
 
       // Insert into store (and spatial index)
-      console.log('Indexing...')
       this.store.insert(annotations);
-      console.timeEnd('Took');
 
       this.resize(); 
     });
