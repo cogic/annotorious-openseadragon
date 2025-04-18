@@ -196,6 +196,12 @@ class OSDAnnotorious {
   listDrawingTools = () =>
     this._app.current.listDrawingTools();
 
+  hideAnnotation = (annotationOrId) =>
+    this._app.current.hideAnnotation(annotationOrId);
+
+  showAnnotation = (annotationOrId) =>
+    this._app.current.showAnnotation(annotationOrId);
+
   loadAnnotations = url => fetch(url)
     .then(response => response.json()).then(annotations => {
       this.setAnnotations(annotations);

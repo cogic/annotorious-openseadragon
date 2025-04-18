@@ -327,6 +327,12 @@ export default class OpenSeadragonAnnotator extends Component {
   listDrawingTools = () =>
     this.annotationLayer.listDrawingTools();
 
+  hideAnnotation = (annotationOrId) =>
+    this.annotationLayer.hideAnnotation(annotationOrId);
+
+  showAnnotation = (annotationOrId) =>
+    this.annotationLayer.showAnnotation(annotationOrId);
+
   panTo = (annotationOrId, immediately) =>
     this.annotationLayer.panTo(annotationOrId, immediately);
 

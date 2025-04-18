@@ -1,6 +1,6 @@
 {
   "name": "@cogic/annotorious-openseadragon",
-  "version": "2.7.26",
+  "version": "2.7.27",
   "description": "Annotorious image annotation for OpenSeadragon",
   "main": "dist/openseadragon-annotorious.min.js",
   "scripts": {

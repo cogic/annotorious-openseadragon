@@ -105,6 +105,8 @@ export class AnnotationLayer extends EventEmitter {
 
     this.hoveredShape = null;
 
+    this.hiddenAnnotationIdSet = new Set();
+
     this._initMouseEvents();
   }
 
@@ -134,7 +136,12 @@ export class AnnotationLayer extends EventEmitter {
 
     const { x, y } = getSVGPoint(evt);
 
-    const annotation = this.store.getAnnotationAt(x, y, this.currentScale());
+    const excludedAnnotationIds = [...this.hiddenAnnotationIdSet]
+    if (this.selectedShape) {
+      excludedAnnotationIds.push(this.selectedShape.annotation.id);
+    }
+
+    const annotation = this.store.getAnnotationAt(x, y, this.currentScale(), excludedAnnotationIds);
     if (annotation)
       return this.findShape(annotation);
   }
@@ -523,6 +530,8 @@ export class AnnotationLayer extends EventEmitter {
     // Clear existing
     this.deselect();
 
+    this.hiddenAnnotationIdSet.clear();
+
     const shapes = Array.from(this.g.querySelectorAll('.a9s-annotation'));
     shapes.forEach(s => this.g.removeChild(s));
 
@@ -547,6 +556,11 @@ export class AnnotationLayer extends EventEmitter {
     this.tools.listTools();
 
   overrideId = (originalId, forcedId) => {
+    if (this.hiddenAnnotationIdSet.has(originalId)) {
+      this.hiddenAnnotationIdSet.delete(originalId);
+      this.hiddenAnnotationIdSet.add(forcedId);
+    }
+
     // Update SVG shape data attribute
     const shape = this.findShape(originalId);
     shape.setAttribute('data-id', forcedId);
@@ -562,6 +576,26 @@ export class AnnotationLayer extends EventEmitter {
     this.store.insert(updated);
 
     return updated;
+  }
+
+  hideAnnotation = annotationOrId => {
+    const id = annotationOrId?.id ? annotationOrId.id : annotationOrId;
+    this.hiddenAnnotationIdSet.add(id);
+
+    const shape = this.findShape(annotationOrId);
+    if (shape) {
+      shape.style.display = 'none';
+    }
+  }
+
+  showAnnotation = annotationOrId => {
+    const id = annotationOrId?.id ? annotationOrId.id : annotationOrId;
+    this.hiddenAnnotationIdSet.delete(id);
+
+    const shape = this.findShape(annotationOrId);
+    if (shape) {
+      shape.style.display = null;
+    }
   }
 
   panTo = (annotationOrId, immediately) => {
@@ -580,6 +614,8 @@ export class AnnotationLayer extends EventEmitter {
   removeAnnotation = annotationOrId => {
     // Removal won't work if the annotation is currently selected - deselect!
     const id = annotationOrId.type ? annotationOrId.id : annotationOrId;
+
+    this.hiddenAnnotationIdSet.delete(id);
 
     if (this.selectedShape?.annotation.id === id)
       this.deselect();

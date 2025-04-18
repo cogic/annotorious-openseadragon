@@ -121,7 +121,7 @@ export default class AnnotationStore {
   clear = () =>
     this.spatial_index.clear();
 
-  getAnnotationAt = (x, y, scale) => {
+  getAnnotationAt = (x, y, scale, excludedAnnotationIds = []) => {
     // 5 pixel buffer, so we reliably catch point 
     // annotations (optionally with scale applied)
     const buffer = scale ? 5 / scale : 5;
@@ -136,6 +136,10 @@ export default class AnnotationStore {
 
     // Exact hit test on shape (needed for SVG fragments only!)
     const exactHits = idxHits.filter(annotation => {
+      if (excludedAnnotationIds.includes(annotation.id)) {
+        return false;
+      }
+
       const selectorType = getSelectorType(annotation);
       if (selectorType === 'FragmentSelector') {
         return true; // For FragmentSelectors, shape is always equal to bounds! 
