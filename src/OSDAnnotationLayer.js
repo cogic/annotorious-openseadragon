@@ -187,8 +187,8 @@ export class AnnotationLayer extends EventEmitter {
       moveHandler: evt => {
         if (this.tools.current.isDrawing) {
           const { x , y } = this.tools.current.getSVGPoint(evt.originalEvent);
- 
-          if (!firstDragDone) {
+
+          if (!firstDragDone && !this.config.allowPropagationOnDrawing) {
             evt.originalEvent.stopPropagation();
           }
 
