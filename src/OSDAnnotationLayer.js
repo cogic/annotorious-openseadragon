@@ -182,6 +182,11 @@ export class AnnotationLayer extends EventEmitter {
           if (!gigapixelMode)
             this.scaleTool(this.tools.current);
         }
+
+        if (this.tools.current.isDrawing && this.tools.current.onMouseDown) {
+          const { x , y } = this.tools.current.getSVGPoint(evt.originalEvent);
+          this.tools.current.onMouseDown(x, y, evt.originalEvent);
+        }
       },
 
       moveHandler: evt => {
